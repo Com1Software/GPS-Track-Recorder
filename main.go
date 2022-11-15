@@ -56,6 +56,7 @@ Loop:
 				reset()
 				x := fmt.Sprint(ev.Ch)
 				fmt.Println(x)
+				fmt.Println(level)
 				switch level {
 				case 0:
 					switch x {
@@ -87,25 +88,38 @@ Loop:
 						pos = "W"
 
 					}
-					switch posctl {
-					case 1:
-						pos1 = pos
-					case 2:
-						pos2 = pos
-					case 3:
-						pos3 = pos
-					case 4:
-						pos4 = pos
 
+				case 4:
+					switch x {
+					case "78":
+						pos = "N"
+					case "110":
+						pos = "N"
 					}
 				}
-				posctl++
-				fmt.Printf("pos1 %s\n", pos1)
-				fmt.Printf("pos2 %s\n", pos2)
-				fmt.Printf("pos3 %s\n", pos3)
-				fmt.Printf("pos4 %s\n", pos4)
+			}
+			switch posctl {
+			case 1:
+				pos1 = pos
+				fmt.Println("test")
+
+			case 2:
+				pos2 = pos
+				fmt.Println("test")
+			case 3:
+				pos3 = pos
+				fmt.Println("test")
+
+			case 4:
+				pos4 = pos
 
 			}
+			fmt.Printf("pos1 %s\n", pos1)
+			fmt.Printf("pos2 %s\n", pos2)
+			fmt.Printf("pos3 %s\n", pos3)
+			fmt.Printf("pos4 %s\n", pos4)
+
+			posctl++
 
 		case term.EventError:
 			panic(ev.Err)
@@ -140,7 +154,7 @@ Loop:
 				fmt.Println("Mapping Straight-Line Track")
 				fmt.Println("Save Track Map")
 				fmt.Println("(Y)es (N)o")
-				break Loop
+				level = 4
 			}
 			if tracktype == 2 {
 				fmt.Println("Mapping Square Four Point Track")
