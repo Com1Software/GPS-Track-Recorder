@@ -9,6 +9,13 @@ import (
 
 func main() {
 	tracktype := 0
+	level := 0
+	posctl := 0
+	pos := ""
+	pos1 := ""
+	pos2 := ""
+	pos3 := ""
+	pos4 := ""
 	err := term.Init()
 	if err != nil {
 		panic(err)
@@ -48,11 +55,54 @@ Loop:
 			default:
 				reset()
 				x := fmt.Sprint(ev.Ch)
-				switch x {
-				case "49":
-					tracktype = 1
-				case "50":
-					tracktype = 2
+				fmt.Println(x)
+				if level == 0 {
+					switch x {
+					case "49":
+						tracktype = 1
+						level = 1
+					case "50":
+						tracktype = 2
+						level = 1
+
+					}
+				}
+				if level == 1 {
+					switch x {
+					case "78":
+						pos = "N"
+					case "110":
+						pos = "N"
+					case "83":
+						pos = "S"
+					case "115":
+						pos = "S"
+					case "69":
+						pos = "E"
+					case "101":
+						pos = "E"
+					case "87":
+						pos = "W"
+					case "119":
+						pos = "W"
+
+					}
+					switch posctl {
+					case 1:
+						pos1 = pos
+					case 2:
+						pos2 = pos
+					case 3:
+						pos3 = pos
+					case 4:
+						pos4 = pos
+
+					}
+					posctl++
+					fmt.Printf("pos1 %s\n", pos1)
+					fmt.Printf("pos2 %s\n", pos2)
+					fmt.Printf("pos3 %s\n", pos3)
+					fmt.Printf("pos4 %s\n", pos4)
 
 				}
 
@@ -60,11 +110,20 @@ Loop:
 		case term.EventError:
 			panic(ev.Err)
 		}
-		if tracktype == 1 {
-			fmt.Println("Mapping Straight-Line Track")
-		}
-		if tracktype == 2 {
-			fmt.Println("Mapping Square Four Point Track")
+		if level == 1 {
+			if tracktype == 1 {
+				fmt.Println("Mapping Straight-Line Track")
+				fmt.Println("Select First GPS Point")
+				fmt.Println("N - North")
+				fmt.Println("S - South")
+				fmt.Println("E - East")
+				fmt.Println("W - West")
+				fmt.Println("Enter Selection:")
+
+			}
+			if tracktype == 2 {
+				fmt.Println("Mapping Square Four Point Track")
+			}
 		}
 	}
 }
