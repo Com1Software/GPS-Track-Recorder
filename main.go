@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	tracktype := 0
 	err := term.Init()
 	if err != nil {
 		panic(err)
@@ -16,6 +17,10 @@ func main() {
 	defer term.Close()
 	fmt.Println("GPS-Track-Recorder")
 	fmt.Printf("Operating System : %s\n", runtime.GOOS)
+	fmt.Println("Select Track Type")
+	fmt.Println("1 - Straight-Line Track")
+	fmt.Println("2 - Square Four Point Track")
+	fmt.Println("Enter Selection:")
 
 Loop:
 	for {
@@ -42,11 +47,24 @@ Loop:
 
 			default:
 				reset()
-				fmt.Println("Key : ", ev.Ch)
+				x := fmt.Sprint(ev.Ch)
+				switch x {
+				case "49":
+					tracktype = 1
+				case "50":
+					tracktype = 2
+
+				}
 
 			}
 		case term.EventError:
 			panic(ev.Err)
+		}
+		if tracktype == 1 {
+			fmt.Println("Mapping Straight-Line Track")
+		}
+		if tracktype == 2 {
+			fmt.Println("Mapping Square Four Point Track")
 		}
 	}
 }
