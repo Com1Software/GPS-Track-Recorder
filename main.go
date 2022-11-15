@@ -56,7 +56,8 @@ Loop:
 				reset()
 				x := fmt.Sprint(ev.Ch)
 				fmt.Println(x)
-				if level == 0 {
+				switch level {
+				case 0:
 					switch x {
 					case "49":
 						tracktype = 1
@@ -66,8 +67,7 @@ Loop:
 						level = 1
 
 					}
-				}
-				if level == 1 {
+				case 1:
 					switch x {
 					case "78":
 						pos = "N"
@@ -98,28 +98,49 @@ Loop:
 						pos4 = pos
 
 					}
-					posctl++
-					fmt.Printf("pos1 %s\n", pos1)
-					fmt.Printf("pos2 %s\n", pos2)
-					fmt.Printf("pos3 %s\n", pos3)
-					fmt.Printf("pos4 %s\n", pos4)
-
 				}
+				posctl++
+				fmt.Printf("pos1 %s\n", pos1)
+				fmt.Printf("pos2 %s\n", pos2)
+				fmt.Printf("pos3 %s\n", pos3)
+				fmt.Printf("pos4 %s\n", pos4)
 
 			}
+
 		case term.EventError:
 			panic(ev.Err)
 		}
-		if level == 1 {
+		switch level {
+		case 1:
 			if tracktype == 1 {
 				fmt.Println("Mapping Straight-Line Track")
 				fmt.Println("Select First GPS Point")
-				fmt.Println("N - North")
-				fmt.Println("S - South")
-				fmt.Println("E - East")
-				fmt.Println("W - West")
+				fmt.Println("(N)orth (S)outh (E)ast (W)est")
 				fmt.Println("Enter Selection:")
+				level = 2
+			}
+			if tracktype == 2 {
+				fmt.Println("Mapping Square Four Point Track")
+			}
 
+		case 2:
+			if tracktype == 1 {
+				fmt.Println("Mapping Straight-Line Track")
+				fmt.Println("Select Second GPS Point")
+				fmt.Println("(N)orth (S)outh (E)ast (W)est")
+				fmt.Println("Enter Selection:")
+				level = 3
+			}
+			if tracktype == 2 {
+				fmt.Println("Mapping Square Four Point Track")
+			}
+
+		case 3:
+			if tracktype == 1 {
+				fmt.Println("Mapping Straight-Line Track")
+				fmt.Println("Save Track Map")
+				fmt.Println("(Y)es (N)o")
+				break Loop
 			}
 			if tracktype == 2 {
 				fmt.Println("Mapping Square Four Point Track")
