@@ -68,7 +68,16 @@ Loop:
 						level = 1
 
 					}
-				case 1:
+
+				case 4:
+					switch x {
+					case "89":
+						pos = "N"
+					case "121":
+						pos = "N"
+					}
+				default:
+					posctl++
 					switch x {
 					case "78":
 						pos = "N"
@@ -89,13 +98,6 @@ Loop:
 
 					}
 
-				case 4:
-					switch x {
-					case "78":
-						pos = "N"
-					case "110":
-						pos = "N"
-					}
 				}
 			}
 			switch posctl {
@@ -105,7 +107,8 @@ Loop:
 
 			case 2:
 				pos2 = pos
-				fmt.Println("test")
+				fmt.Println("test2")
+				fmt.Println(pos)
 			case 3:
 				pos3 = pos
 				fmt.Println("test")
@@ -118,8 +121,6 @@ Loop:
 			fmt.Printf("pos2 %s\n", pos2)
 			fmt.Printf("pos3 %s\n", pos3)
 			fmt.Printf("pos4 %s\n", pos4)
-
-			posctl++
 
 		case term.EventError:
 			panic(ev.Err)
