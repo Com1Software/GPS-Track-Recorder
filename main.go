@@ -3,13 +3,13 @@ package main
 import (
 	"fmt"
 	"runtime"
-      gps "github.com/Com1Software/GPS-Package"
-	term "github.com/nsf/termbox-go"
+ // "github.com/Com1Software/GPS-Package"
+	"github.com/nsf/termbox-go"
 )
 
 func main() {
-	port := gps.getSerialPort()
-	fmt.Println(port)
+// port := gps.getSerialPort()
+//	fmt.Println(port)
 	tracktype := 0
 	level := 0
 	posctl := 0
@@ -18,12 +18,12 @@ func main() {
 	pos2 := ""
 	pos3 := ""
 	pos4 := ""
-	err := term.Init()
+	err := termbox.Init()
 	if err != nil {
 		panic(err)
 	}
 
-	defer term.Close()
+	defer termbox.Close()
 	fmt.Println("GPS-Track-Recorder")
 	fmt.Printf("Operating System : %s\n", runtime.GOOS)
 	fmt.Println("Select Track Type")
@@ -33,24 +33,24 @@ func main() {
 
 Loop:
 	for {
-		switch ev := term.PollEvent(); ev.Type {
-		case term.EventKey:
+		switch ev := termbox.PollEvent(); ev.Type {
+		case termbox.EventKey:
 			switch ev.Key {
-			case term.KeyEsc:
+			case termbox.KeyEsc:
 				break Loop
-			case term.KeySpace:
+			case termbox.KeySpace:
 				reset()
 				fmt.Println("Space")
-			case term.KeyArrowUp:
+			case termbox.KeyArrowUp:
 				reset()
 				fmt.Println("Arrow Up")
-			case term.KeyArrowDown:
+			case termbox.KeyArrowDown:
 				reset()
 				fmt.Println("Arrow Down")
-			case term.KeyArrowLeft:
+			case termbox.KeyArrowLeft:
 				reset()
 				fmt.Println("Arrow Left")
-			case term.KeyArrowRight:
+			case termbox.KeyArrowRight:
 				reset()
 				fmt.Println("Arrow Right")
 
@@ -124,7 +124,7 @@ Loop:
 			fmt.Printf("pos3 %s\n", pos3)
 			fmt.Printf("pos4 %s\n", pos4)
 
-		case term.EventError:
+		case termbox.EventError:
 			panic(ev.Err)
 		}
 		switch level {
@@ -167,5 +167,5 @@ Loop:
 }
 
 func reset() {
-	term.Sync()
+	termbox.Sync()
 }
