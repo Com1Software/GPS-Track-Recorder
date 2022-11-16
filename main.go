@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"runtime"
-
+      gps "github.com/Com1Software/GPS-Package"
 	term "github.com/nsf/termbox-go"
 )
 
 func main() {
+	port := gps.getSerialPort()
+	fmt.Println(port)
 	tracktype := 0
 	level := 0
 	posctl := 0
@@ -103,7 +105,7 @@ Loop:
 			switch posctl {
 			case 1:
 				pos1 = pos
-				fmt.Println("test")
+				fmt.Println("test1")
 
 			case 2:
 				pos2 = pos
@@ -111,7 +113,7 @@ Loop:
 				fmt.Println(pos)
 			case 3:
 				pos3 = pos
-				fmt.Println("test")
+				fmt.Println("test3")
 
 			case 4:
 				pos4 = pos
