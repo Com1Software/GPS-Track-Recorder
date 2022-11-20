@@ -1,15 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"runtime"
- // "github.com/Com1Software/GPS-Package"
-	"github.com/nsf/termbox-go"
+     "fmt"
+     "runtime"
+     "github.com/Com1Software/GPS"
+     "github.com/nsf/termbox-go"
 )
 
 func main() {
-// port := gps.getSerialPort()
-//	fmt.Println(port)
+	port := gps.GetSerialPort()
+	fmt.Println(port)
 	tracktype := 0
 	level := 0
 	posctl := 0
@@ -25,7 +25,8 @@ func main() {
 
 	defer termbox.Close()
 	fmt.Println("GPS-Track-Recorder")
-	fmt.Printf("Operating System : %s\n", runtime.GOOS)
+      fmt.Printf("Operating System : %s\n", runtime.GOOS)
+      fmt.Printf("Serial Port : %s\n", port)
 	fmt.Println("Select Track Type")
 	fmt.Println("1 - Straight-Line Track")
 	fmt.Println("2 - Square Four Point Track")
